@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <title>contato</title>
+ <style>
+     body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    background-image: url('sustentabilidade.jpg'); 
+    background-size: cover;
+    background-position: center;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  
+  .contato-container {
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.3);
+    max-width: 400px;
+    width: 100%;
+  }
+
+ 
+  h2 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  
+  input[type="text"],
+  input[type="email"],
+  textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical;
+  }
+
+
+  button {
+    width: 100%;
+    padding: 10px;
+    background-color: #00520A;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  button:hover {
+    background-color: #00520A;
+  }
+ </style>
+</head>
+<body>
+    <div class="contato-container">
+        <h1>Contato</h1>
+    
+        <form class="form" action="conectar.php" method="post">
+           
+            <div class="form_grupo">
+                <label for="nome" class="form_label">Nome</label>
+                <input type="text" name="nome" class="form_input" id="nome" placeholder="Nome" required>
+            </div>
+            
+           
+            <div class="form_grupo">
+                <label for="email" class="form_label">Email</label>
+                <input type="email" name="email" class="form_input" id="email" placeholder="seuemail@email.com" required>
+            </div>
+    
+            
+            <div class="form_grupo">
+                <label for="assunto" class="form_label">Assunto</label>
+                <input type="text" name="assunto" class="form_input" id="assunto" placeholder="Digite o assunto" required>
+            </div>
+    
+           
+            <div class="form_grupo">
+                <label for="mensagem" class="form_label">Mensagem</label>
+                <textarea id="mensagem" name="mensagem" class="form_input" placeholder="Digite sua mensagem" required></textarea>
+            </div>
+    
+            
+            <div class="submit">
+                <input type="hidden" name="acao" value="enviar">
+                <button type="submit" name="Submit" class="submit_btn">Enviar</button>
+                <button type="button" onclick="window.location.href='index.html'" class="submit_btn">Cancelar</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
