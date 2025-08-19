@@ -4,6 +4,9 @@ include 'conexao.php';
 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['acao']) && $_POST['acao'] === 'enviar') {
+
+    $bancoDeDados = new BancoDeDados(); 
+    $conn = $bancoDeDados->obterConexao(); 
     
     $nome = $_POST['nome'];
     $email = $_POST['email'];
@@ -18,30 +21,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['acao']) && $_POST['ac
         die("As senhas não coincidem!");
     }
 
-   
-
  
     $senha_hash = password_hash($senha, PASSWORD_DEFAULT);
 
   
-    $sql = "INSERT INTO usuarios (nome, email, senha, datanascimento, estadocivil, sexo) VALUES (?, ?, ?, ?, ?, ?)";
-
-   
-    if ($stmt = $conn->prepare($sql)) {
-        $stmt->bind_param("ssssss", $nome, $email, $senha_hash, $datanascimento, $estadocivil, $sexo);
-
-        if ($stmt->execute()) {
-            echo "Cadastro realizado com sucesso!";
-        } else {
-            echo "Erro ao cadastrar: " . $stmt->error;
-        }
-
-        $stmt->close();
-    } else {
-        echo "Erro na preparação da consulta: " . $conn->error;
+    try {
+        $sql = "INSERT INTO usuarios (nome, email, senha, datanascimento, estadocivil, sexo) VALUES (?, ?, ?, ?, ?, ?)";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute([$nome, $email, $senha_hash, $datanascimento, $estadocivil, $sexo]);
+        
+        echo "Cadastro realizado com sucesso!";
+    } catch(PDOException $e) {
+        echo "Erro ao cadastrar: " . $e->getMessage();
     }
-
-    $conn->close();
 }
 ?>
 <!DOCTYPE html>
@@ -57,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['acao']) && $_POST['ac
     <div class="container_form">
         <h1>Cadastra-se</h1>
     
-        <form class="form" action="#" method="post">
+        <form class="form" action="cadastro.php" method="post">
             
             <div class="form_grupo">
                 <label for="nome" class="form_label">Nome</label>
@@ -123,3 +115,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['acao']) && $_POST['ac
     </div>
 </body>
 </html>
+
