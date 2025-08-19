@@ -1,13 +1,17 @@
 <?php
 class BancoDeDados {
-$servername = "localhost"; 
-$username = "root";  
-$password = "";    
-$dbname = "meuprojeto"; 
+    private $host = "localhost";
+    private $usuario = "root";
+    private $senha = "";
+    private $nome_banco = "meuprojeto";
+    private $porta = "49170"; 
+    private $conexao;
+
     public function obterConexao() {
         $this->conexao = null;
         try {
-            $this->conexao = new PDO("mysql:host={$this->host};port=49160;dbname={$this->nome_banco}", $this->usuario, $this->senha);
+            $dsn = "mysql:host={$this->host};port={$this->porta};dbname={$this->nome_banco}"; 
+            $this->conexao = new PDO($dsn, $this->usuario, $this->senha);  
             $this->conexao->exec("set names utf8");
             $this->conexao->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         } catch(PDOException $excecao) {
